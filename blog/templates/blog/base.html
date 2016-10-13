@@ -1,0 +1,40 @@
+<!-- 使用本地静态文件 -->
+{% load staticfiles %}
+<html>
+    <head>
+        <title>手册</title>
+        <!-- 用Bootstrap提供的模板 -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!-- 用自己设置的CSS模板 -->
+    	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
+    <body>
+
+        <div>
+            <h1><a href="{% url 'post_list' %}">大魔法师修炼手册</a></h1>
+        <!-- 用户登录的情况下 -->
+        {% if user.is_authenticated %}
+            <p class="top-menu">Hello, {{ user.username }}. Thanks for login.</p>
+            <!-- 可以登出 -->
+            <a href="{% url 'django.contrib.auth.views.logout' %}" class="btn btn-default">logout</a>
+            <br>
+            <!-- 可以新建博客 -->
+            <a href="{% url 'post_new' %}" class="btn btn-default">New post</a>
+            <br>
+            <!-- 可以查看草稿 -->
+            <a href="{% url 'post_draft_list' %}" class="btn btn-default">Unpublished</a>
+        <!-- 未登录 -->
+        {% else %}
+            <p class="top-menu">Hello, new user. Please login.</p>
+            <!-- 显示登录按钮 -->
+            <a href="{% url 'django.contrib.auth.views.login' %}?next={{request.path}}" class="btn btn-default">login</a>
+        {% endif %}
+            
+        </div>
+        <div>
+        	{% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

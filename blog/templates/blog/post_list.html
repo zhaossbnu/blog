@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+    {%block content%}
+        <!-- 对于每一个查询结果 -->
+        {% for post in posts %}
+        <div>
+            <!-- 打印时间 -->
+        	<p>published:{{post.published_date}}</p>
+            <!-- 显示博客题目 并且可以超链接至博客详细信息 -->
+        	<h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <!-- 博客内容 -->
+        	<p>{{post.text|linebreaks}}</p>
+            <!-- 评论 并且可以超链接至博客详细信息-->
+        	<a href="{% url 'blog.views.post_detail' pk=post.pk %}">Approved comments:{{post.approved_comments.count}}</a>
+        </div>
+
+        {% endfor %}
+    {% endblock %}

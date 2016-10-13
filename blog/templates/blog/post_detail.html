@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+
+    {% block content %}
+        <div class="post">
+        <!-- 用户经过认证 -->
+        {% if user.is_authenticated %}
+            <!-- 用户可以修改博客 -->
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
+            <!-- 用户可以删除博客 -->
+            <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">Remove</a>
+        {% endif %}
+        <!-- 判断该博客是否已经完全发布 -->
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% else %}
+            <!-- 发布博客 -->
+            <a class="btn btn-default" href="{% url 'blog.views.post_publish' pk=post.pk%}">Publish</a>
+        {% endif %}
+
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.text|linebreaks }}</p>
+        </div> 
+        <!-- 评论 -->
+        <a class="btn btn-default" href="{% url 'blog.views.add_comment_to_post' pk=post.pk %}">Add comment</a>
+        {% for comment in post.comments.all %}
+            {% if user.is_authenticated %}
+                <div class="comment">
+                    <div class="date">
+                        {{ comment.created_date }}
+                        {% if not comment.approved_comment %}
+                            <a class="btn btn-defalut" href="{% url 'blog.views.comment_remove' pk=comment.pk %}">Remove</a>
+                            <a class="btn btn-defalut" href="{% url 'blog.views.comment_approve' pk=comment.pk %}">Approve</a>
+                        {% endif %}  
+                    </div>
+                    <strong>{{ comment.author }}</strong>
+                    <p>{{ comment.text|linebreaks }}</p>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p>No Comments.</p>
+        {% endfor %}
+    {% endblock %}

@@ -1,0 +1,54 @@
+mysite：
+│  manage.py #管理站点的脚本
+│
+├─blog
+│  │  admin.py
+│  │  apps.py
+│  │  forms.py # Django表单
+│  │  models.py # 存放数据模型 基本上可以认为是数据库中的表
+│  │  tests.py
+│  │  urls.py # 存放本APP中对应的urls
+│  │  views.py # 将模型中的数据传递给模板 
+│  │  __init__.py
+│  │
+│  ├─migrations
+│  │  │  0001_initial.py
+│  │  │  __init__.py
+│  │  │
+│  │  └─__pycache__
+│  │          0001_initial.cpython-34.pyc
+│  │          __init__.cpython-34.pyc
+│  │
+│  ├─static # 静态资源存放处
+│  │  └─css 
+│  │          blog.css
+│  │
+│  ├─templates  # 里面存放着模板 也就是HTML文件
+│  │  └─blog    # blog这个APP对应的模板
+│  │          base.html             # 基本模板 
+│  │          post_detail.html      # 显示一条博客的模板(内嵌在base.html中)
+│  │          post_edit.html        # 新建博客模板(内嵌在base.html中)
+│  │          post_list.html        # 列出博客模板(内嵌在base.html中)
+│  │
+│  └─__pycache__
+│          admin.cpython-34.pyc
+│          forms.cpython-34.pyc
+│          models.cpython-34.pyc
+│          urls.cpython-34.pyc
+│          views.cpython-34.pyc
+│          __init__.cpython-34.pyc
+│
+└─mysite #关于本站点所有信息
+    │  settings.py # 网站的配置数据
+    │  urls.py # 本站点所有url的配置
+    │  wsgi.py
+    │  __init__.py
+    │
+    └─__pycache__
+            settings.cpython-34.pyc
+            urls.cpython-34.pyc
+            wsgi.cpython-34.pyc
+            __init__.cpython-34.pyc
+
+
+D:\mysite>
